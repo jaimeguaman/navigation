@@ -13,7 +13,8 @@
         attrScopeCurrent: prefix + '-scope-current',
         attrElement: prefix + '-el',
         attrElementFOV: prefix + '-el-fov',
-        attrElementCurrent: prefix + '-el-current'
+        attrElementCurrent: prefix + '-el-current',
+        attrElementAutoFocus: prefix + '-el-autofocus'
     };
 
 
@@ -886,6 +887,7 @@
      */
     NavScope.prototype.setCurrentElement = function(element) {
         var prevElement = this.getCurrentElement();
+        var autofocus = element.getAttribute(options.attrElementAutoFocus);
         this.currentElement = element;
 
         if(prevElement){
@@ -896,6 +898,10 @@
         addClass(this.currentElement, options.attrElementCurrent);
 
         this.currentElement.setAttribute(options.attrElementCurrent, 'true');
+
+        if(autofocus === true || autofocus == ''){
+          this.currentElement.focus();
+        }       
     };
 
 
